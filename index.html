@@ -1,1 +1,363 @@
-<!DOCTYPE html><html lang="en"><head> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="icon" href="./y.png"> <title>OMEGALUL</title> <style> body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #9146FF ; } </style></head><body> <img src="./x.png" alt="x"></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>muiko — a personal home page you furnish yourself</title>
+<meta name="description" content="muiko is a personal home page you furnish yourself: profile, notes, favourites, and small rooms you add on. Built slowly by one indie dev in Malaysia.">
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/doto.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:fraunces;src:url(/fonts/fraunces.woff2)format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:fraunces-fb;src:local(Georgia);size-adjust:104%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
+@font-face{font-family:doto;src:url(/fonts/doto.woff2)format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:doto-fb;src:local(Menlo);size-adjust:100%}
+:root{--night:#141a33;--dusk:#2b2a5a;--ember:#e0774f;--lamp:#ffc77d;--mist:#a9a3c9;--paper:#f3ead9;--panel:#1b2044;--line:#2b2f5c;--glass:#1a2048;--wall:#0f1229;
+--display:fraunces,fraunces-fb,Georgia,serif;--dot:doto,doto-fb,ui-monospace,Menlo,monospace;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--paper);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:var(--lamp)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+h1,h2,h3,p,ul,dl{margin:0}
+.wrap{width:100%;max-width:66rem;margin:0 auto;padding:0 1rem}
+.eyebrow{font:600 .75rem/1 var(--dot);letter-spacing:.14em;text-transform:uppercase;color:var(--lamp);margin:0 0 1rem}
+h1{font:500 clamp(2.5rem,1.4rem + 5.6vw,5rem)/1.04 var(--display);letter-spacing:-.01em;max-width:14ch;margin:0 0 1.1rem;text-wrap:balance}
+h2{font:500 clamp(1.7rem,1.1rem + 2.4vw,2.6rem)/1.15 var(--display);max-width:22ch;margin:0 0 1rem;text-wrap:balance}
+.sec{padding:clamp(4rem,10vw,7.5rem) 1rem 0}
+.sec>p{max-width:60ch}
+.muted{color:var(--mist)}
+.btn{display:inline-block;background:var(--lamp);color:var(--night);font-weight:600;padding:.8em 1.35em;border-radius:999px;text-decoration:none;border:1px solid var(--lamp)}
+.btn:hover{animation:flick .45s steps(1,end) 1}
+.btn.ghost{background:transparent;color:var(--paper);border-color:var(--mist)}
+.btn.ghost:hover{border-color:var(--lamp);color:var(--lamp)}
+@keyframes flick{30%{filter:brightness(.78)}60%{filter:brightness(1.12)}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;border-bottom:14px solid var(--wall);
+background:linear-gradient(180deg,#121630 0%,#1b1e4a 38%,var(--dusk) 60%,#5a3a5c 80%,#a85a48 93%,var(--ember) 100%)}
+.rain{position:absolute;inset:-80px 0 0 0;pointer-events:none;opacity:.9;
+background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='80'%3E%3Cpath d='M19 6l-5 26' stroke='%23a9a3c9' stroke-opacity='.17' stroke-width='1.1'/%3E%3C/svg%3E") 0 0/29px 80px,
+url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='47' height='80'%3E%3Cpath d='M12 44l-4 20' stroke='%23a9a3c9' stroke-opacity='.11' stroke-width='1'/%3E%3C/svg%3E") 0 0/47px 80px;
+animation:rain .9s linear infinite;will-change:transform}
+@keyframes rain{to{transform:translate3d(0,80px,0)}}
+.off .rain{animation-play-state:paused}
+.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 0;position:relative}
+.brand{font:500 1.5rem/1 var(--display);color:var(--paper);text-decoration:none}
+.brand small{font:600 .68rem/1 var(--dot);letter-spacing:.14em;text-transform:uppercase;color:var(--lamp);margin-left:.6rem;vertical-align:middle}
+.tools{display:flex;align-items:center;gap:.8rem;font:600 .78rem/1 var(--dot);letter-spacing:.1em;text-transform:uppercase;color:var(--lamp)}
+#clock{min-width:5ch;text-align:right}
+#rain{font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--mist);background:none;border:1px solid var(--line);border-radius:999px;padding:.55em .85em;cursor:pointer;min-width:7.5em}
+#rain[aria-pressed=true]{color:var(--lamp);border-color:var(--lamp)}
+.stage{position:relative;display:flex;flex-direction:column;flex:1}
+.lede{padding:1.25rem 0 1.25rem}
+.lede p{font-size:clamp(1.05rem,.95rem + .4vw,1.25rem);max-width:46ch;margin:0 0 1.6rem}
+.cta{display:flex;flex-wrap:wrap;gap:.75rem}
+.street{margin-top:auto;padding-top:1rem}
+.cap{font:600 .7rem/1 var(--dot);letter-spacing:.14em;text-transform:uppercase;color:var(--mist);margin:0 0 .5rem}
+.facade{display:block;margin:0 auto;width:min(100%,720px);height:auto;max-height:44svh}
+@media (min-width:960px){
+ .stage{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,10fr);column-gap:2.5rem;align-items:end}
+ .lede{padding:1.5rem 0 3rem}
+ .street{margin:0}
+ .facade{margin:0 0 0 auto;width:100%;max-height:min(64svh,540px)}
+}
+.w{fill:var(--glass);animation:lit .5s steps(1,end) calc(.4s + var(--i)*.14s) both}
+@keyframes lit{0%{fill:var(--glass)}30%{fill:var(--lamp)}50%{fill:var(--glass)}100%{fill:var(--lamp)}}
+.w.dark{animation:none}
+.w.tv{animation:tv 2.4s steps(1,end) calc(.4s + var(--i)*.14s) infinite}
+@keyframes tv{0%{fill:#7fb2ff}35%{fill:#b8d1ff}55%{fill:#5c86e6}80%{fill:#9cc0ff}100%{fill:#7fb2ff}}
+.w.yours{animation:lit .5s steps(1,end) calc(.4s + var(--i)*.14s) both,pulse 2.2s ease-in-out calc(1.2s + var(--i)*.14s) 3}
+@keyframes pulse{50%{opacity:.5}}
+.w:is(:hover,:focus-visible) rect{fill:#fff3dc}
+.w:focus-visible{outline:none}
+.w:focus-visible rect{stroke:var(--paper);stroke-width:1.5}
+.lbl{font:600 9px var(--dot);fill:var(--lamp);opacity:0;paint-order:stroke;stroke:#0f1229;stroke-width:3px;stroke-linejoin:round;pointer-events:none;text-transform:uppercase;letter-spacing:.06em}
+.w:is(:hover,:focus-visible) .lbl{opacity:1}
+.yours .lbl{animation:show .5s calc(1.1s + var(--i)*.14s) both}
+@keyframes show{to{opacity:1}}
+
+/* home */
+.three{list-style:none;padding:0;margin:1.5rem 0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
+.three h3{font:500 1.35rem/1.2 var(--display);color:var(--lamp);margin:0 0 .3rem}
+.three p{color:var(--mist)}
+
+/* rooms */
+.cards{list-style:none;padding:0;margin:2rem 0 0;display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr))}
+.card{display:block;height:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.1rem 1rem;color:inherit;text-decoration:none}
+a.card:hover{border-color:var(--lamp)}
+.card.ghost{background:transparent;border-style:dashed}
+.card.ghost .glyph rect{fill:var(--glass)}
+.card.ghost .glyph path{stroke:var(--line)}
+.glyph{width:30px;height:24px;display:block}
+.glyph rect{fill:var(--acc)}
+.glyph path{stroke:var(--panel);stroke-width:2}
+.card h3{font-size:1.05rem;margin:.7rem 0 .25rem}
+.card p{color:var(--mist);font-size:.95rem;margin:0 0 .9rem}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap}
+.chip{font:600 .68rem/1 var(--dot);letter-spacing:.12em;text-transform:uppercase;color:var(--mist);border:1px solid var(--line);border-radius:999px;padding:.4em .65em}
+.chip.live{color:var(--lamp);border-color:var(--lamp)}
+.url{font:.74rem var(--mono);color:var(--mist)}
+.board{margin:2.5rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.6rem 1.25rem;background:#0b0e22;border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;font:600 .82rem/1.5 var(--dot);letter-spacing:.08em;text-transform:uppercase;
+background-image:repeating-linear-gradient(0deg,transparent 0 2px,rgb(255 255 255/.025) 2px 3px)}
+.board dt{color:var(--mist)}
+.board dd{color:var(--lamp)}
+
+/* who, sponsor, footer */
+.links{list-style:none;padding:0;margin:1.2rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+.ask{margin:1.6rem 0 1rem}
+.big{font-size:1.1rem;padding:1em 1.6em}
+#who,#sponsor,footer{content-visibility:auto;contain-intrinsic-size:auto 600px}
+footer.wrap{padding:clamp(4rem,10vw,7.5rem) 1rem 2.5rem;color:var(--mist);font-size:.9rem}
+footer .dot{font:600 .78rem var(--dot);letter-spacing:.12em;text-transform:uppercase;color:var(--lamp)}
+
+@media (max-width:640px){
+ .brand small{display:none}
+ .facade{max-height:40svh}
+ .cta .btn{flex:1 1 auto;text-align:center}
+ .board{grid-template-columns:1fr;gap:.2rem}
+ .board dd{margin-bottom:.6rem}
+}
+@media (prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .w,.w.tv,.w.yours,.yours .lbl,.btn:hover{animation:none}
+ .w{fill:var(--lamp)}.w.dark{fill:var(--glass)}.w.tv{fill:#8fb8ff}.yours .lbl{opacity:1}
+ .rain{display:none}
+}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://muiko.dev/">
+<meta name="theme-color" content="#141a33">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://muiko.dev/">
+<meta property="og:site_name" content="muiko">
+<meta property="og:title" content="muiko — a small home on the internet">
+<meta property="og:description" content="A personal home page you furnish yourself: profile, notes, favourites, and small rooms you add on. Built slowly by one indie dev in Malaysia.">
+<meta property="og:image" content="https://muiko.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A low-rise flat at dusk with its windows lit, next to the words: a small home on the internet.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="muiko — a small home on the internet">
+<meta name="twitter:description" content="A personal home page you furnish yourself: profile, notes, favourites, and small rooms you add on. Built slowly by one indie dev in Malaysia.">
+<meta name="twitter:image" content="https://muiko.dev/og.png">
+<link rel="me" href="https://github.com/HakeemIshak">
+<link rel="me" href="https://hakeemishak.me">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://muiko.dev/#site","url":"https://muiko.dev/","name":"muiko","description":"A personal home page you furnish yourself: profile, notes, favourites, and small rooms you add on.","inLanguage":"en","publisher":{"@id":"https://hakeemishak.me/#me"}},{"@type":"Person","@id":"https://hakeemishak.me/#me","name":"Hakeem Ishak","url":"https://hakeemishak.me","jobTitle":"Software engineer","email":"mailto:pm@hakeemishak.me","sameAs":["https://github.com/HakeemIshak","https://www.linkedin.com/in/hakeemishak"]}]}</script>
+</head>
+<body>
+
+<section class="hero" id="top">
+<div class="rain" aria-hidden="true"></div>
+<header class="wrap top">
+<a class="brand" href="/">muiko<small>· early days</small></a>
+<div class="tools">
+<span id="clock">--:--</span>
+<button id="rain" type="button" aria-pressed="false" title="ambient rain and vinyl crackle, made in your browser. on an iphone it needs the ringer switch on.">rain · off</button>
+</div>
+</header>
+<div class="wrap stage">
+<div class="lede">
+<p class="eyebrow">muiko.dev</p>
+<h1>a small home on the internet.</h1>
+<p>muiko is a personal home page you furnish yourself: a profile, some notes, your favourites, and little rooms you add on as you need them. one person is building it, slowly, after work.</p>
+<p class="cta"><a class="btn" href="#sponsor">sponsor the build</a><a class="btn ghost" href="#rooms">see what's live</a></p>
+</div>
+<div class="street">
+<p class="cap">every lit window is a room someone added</p>
+<svg class="facade" viewBox="0 0 360 240" width="360" height="240" preserveAspectRatio="xMidYMax meet" role="img" aria-labelledby="facade-t">
+<title id="facade-t">a low-rise flat at dusk; its windows light up one by one</title>
+<g id="roof">
+<rect x="254" y="14" width="30" height="18" rx="3" fill="#171b3b"/>
+<path d="M258 32v8M280 32v8" stroke="#171b3b" stroke-width="2"/>
+<path d="M96 40v-16M90 24a7 7 0 0 1 12 0" stroke="#2a2f5e" stroke-width="1.5" fill="none"/>
+<path d="M190 40v-10h8" stroke="#2a2f5e" stroke-width="1.5" fill="none"/>
+</g>
+<g id="block">
+<rect x="28" y="40" width="304" height="192" fill="#0f1229"/>
+<rect x="28" y="40" width="36" height="192" fill="#131736"/>
+<rect x="28" y="40" width="304" height="4" fill="#1c2047"/>
+<path d="M64 75h268M64 105h268M64 135h268M64 165h268M64 195h268" stroke="#1c2047" stroke-width="2"/>
+<path d="M64 71h268M64 101h268M64 131h268M64 161h268M64 191h268" stroke="#2a2f5e" stroke-width="3" stroke-dasharray="2 2"/>
+<path d="M42 58h8v18h-8zM42 118h8v18h-8zM42 178h8v18h-8z" fill="#2a2f5e"/>
+</g>
+<g id="kedai">
+<rect x="64" y="196" width="268" height="36" fill="#0c0f24"/>
+<path d="M68 204h78M166 204h78M264 204h64" stroke="#1f2350" stroke-width="2"/>
+<rect x="70" y="206" width="76" height="26" fill="#1f2350"/>
+<rect x="168" y="206" width="76" height="12" fill="#1f2350"/>
+<rect x="168" y="218" width="76" height="14" fill="#c9924f" opacity=".55"/>
+<rect x="266" y="206" width="62" height="26" fill="#1f2350"/>
+<path d="M70 211h76M70 216h76M70 221h76M70 226h76M168 211h76M168 216h76M266 211h62M266 216h62M266 221h62M266 226h62" stroke="#0f1229" stroke-width="1"/>
+<path d="M66 201h270" stroke="#a3332b" stroke-width="6"/>
+<path d="M66 201h270" stroke="#f3ead9" stroke-width="6" stroke-dasharray="7 7"/>
+<circle cx="297" cy="228" r="4" fill="none" stroke="#2a2f5e" stroke-width="1.5"/>
+<circle cx="313" cy="228" r="4" fill="none" stroke="#2a2f5e" stroke-width="1.5"/>
+<path d="M297 228l6-8h8l4 8M305 220l2-4h4" stroke="#2a2f5e" stroke-width="1.5" fill="none"/>
+</g>
+<g id="deco">
+<path d="M126 100h12v6h-12zM210 160h12v6h-12zM294 70h12v6h-12zM84 130h12v6h-12z" fill="#2a2f5e"/>
+<path d="M200 159h38M284 99h38" stroke="#5a4a3a" stroke-width="1.5"/>
+<rect x="205" y="160" width="6" height="7" fill="#b3271e"/><rect x="215" y="160" width="6" height="8" fill="#5361e8"/><rect x="225" y="160" width="6" height="6" fill="#f3ead9"/>
+<rect x="289" y="100" width="6" height="7" fill="#89986d"/><rect x="299" y="100" width="6" height="8" fill="#f3ead9"/><rect x="309" y="100" width="6" height="6" fill="#b48334"/>
+</g>
+<g id="win">
+<rect class="w" style="--i:11" x="78" y="53" width="26" height="14"/>
+<rect class="w" style="--i:3" x="120" y="53" width="26" height="14"/>
+<rect class="w dark" x="162" y="53" width="26" height="14"/>
+<a href="#room-jejak" class="w" style="--i:1" aria-label="jejak — makan & jalan log"><title>jejak — makan & jalan log</title><rect x="204" y="53" width="26" height="14"/><text class="lbl" x="204" y="49">jejak</text></a>
+<rect class="w" style="--i:14" x="246" y="53" width="26" height="14"/>
+<rect class="w tv" style="--i:6" x="288" y="53" width="26" height="14"/>
+<rect class="w" style="--i:8" x="78" y="83" width="26" height="14"/>
+<a href="#room-shortener" class="w" style="--i:2" aria-label="shortener — a quiet url shortener"><title>shortener — a quiet url shortener</title><rect x="120" y="83" width="26" height="14"/><text class="lbl" x="120" y="79">shortener</text></a>
+<rect class="w" style="--i:16" x="162" y="83" width="26" height="14"/>
+<rect class="w" style="--i:10" x="204" y="83" width="26" height="14"/>
+<rect class="w dark" x="246" y="83" width="26" height="14"/>
+<rect class="w" style="--i:4" x="288" y="83" width="26" height="14"/>
+<rect class="w" style="--i:13" x="78" y="113" width="26" height="14"/>
+<rect class="w" style="--i:7" x="120" y="113" width="26" height="14"/>
+<a href="#room-ticking-letter" class="w" style="--i:5" aria-label="ticking letter — letters that wait for their moment"><title>ticking letter — letters that wait for their moment</title><rect x="162" y="113" width="26" height="14"/><text class="lbl" x="162" y="109">ticking letter</text></a>
+<rect class="w" style="--i:18" x="204" y="113" width="26" height="14"/>
+<a href="#room-rak" class="w" style="--i:9" aria-label="rak — a reading shelf"><title>rak — a reading shelf</title><rect x="246" y="113" width="26" height="14"/><text class="lbl" x="246" y="109">rak</text></a>
+<rect class="w" style="--i:15" x="288" y="113" width="26" height="14"/>
+<rect class="w" style="--i:12" x="78" y="143" width="26" height="14"/>
+<rect class="w dark" x="120" y="143" width="26" height="14"/>
+<rect class="w" style="--i:17" x="162" y="143" width="26" height="14"/>
+<a href="#room-nadafusion" class="w" style="--i:19" aria-label="nadafusion — copy a playlist, honestly"><title>nadafusion — copy a playlist, honestly</title><rect x="204" y="143" width="26" height="14"/><text class="lbl" x="204" y="139">nadafusion</text></a>
+<rect class="w" style="--i:20" x="246" y="143" width="26" height="14"/>
+<rect class="w" style="--i:21" x="288" y="143" width="26" height="14"/>
+<a href="#room-my-money" class="w" style="--i:22" aria-label="my money — expenses and limits"><title>my money — expenses and limits</title><rect x="78" y="173" width="26" height="14"/><text class="lbl" x="78" y="169">my money</text></a>
+<rect class="w" style="--i:23" x="120" y="173" width="26" height="14"/>
+<g class="w yours" style="--i:26"><rect x="162" y="173" width="26" height="14"/><text class="lbl" x="162" y="169">this one could be yours</text></g>
+<rect class="w" style="--i:24" x="204" y="173" width="26" height="14"/>
+<a href="#room-duit-keluar" class="w" style="--i:25" aria-label="duit keluar — what you pay every month"><title>duit keluar — what you pay every month</title><rect x="246" y="173" width="26" height="14"/><text class="lbl" x="246" y="169">duit keluar</text></a>
+<rect class="w" style="--i:27" x="288" y="173" width="26" height="14"/>
+</g>
+<path id="mull" d="M91 53v14M78 60h26M133 53v14M120 60h26M175 53v14M162 60h26M217 53v14M204 60h26M259 53v14M246 60h26M301 53v14M288 60h26M91 83v14M78 90h26M133 83v14M120 90h26M175 83v14M162 90h26M217 83v14M204 90h26M259 83v14M246 90h26M301 83v14M288 90h26M91 113v14M78 120h26M133 113v14M120 120h26M175 113v14M162 120h26M217 113v14M204 120h26M259 113v14M246 120h26M301 113v14M288 120h26M91 143v14M78 150h26M133 143v14M120 150h26M175 143v14M162 150h26M217 143v14M204 150h26M259 143v14M246 150h26M301 143v14M288 150h26M91 173v14M78 180h26M133 173v14M120 180h26M175 173v14M162 180h26M217 173v14M204 180h26M259 173v14M246 180h26M301 173v14M288 180h26" stroke="#0a0d1f" stroke-width="1.5" fill="none"/>
+<rect x="0" y="232" width="360" height="8" fill="#0f1229"/>
+</svg>
+</div>
+</div>
+</section>
+
+<main>
+
+<section id="home" class="wrap sec">
+<p class="eyebrow">what a muiko home is</p>
+<h2>think of it like a flat, not a feed.</h2>
+<ul class="three">
+<li><h3>a door</h3><p>your profile: a name, a line about you, where to find you.</p></li>
+<li><h3>a notebook</h3><p>notes: short posts, newest on top, no algorithm.</p></li>
+<li><h3>a shelf</h3><p>favourites: links, books, places, songs worth keeping.</p></li>
+</ul>
+<p>then you add rooms. each room is a small tool at its own address that shows up on your home page. you keep the ones you use and ignore the rest.</p>
+</section>
+
+<section id="rooms" class="wrap sec">
+<p class="eyebrow">the rooms</p>
+<h2>rooms you can add.</h2>
+<p class="muted">the ones below are real. two are live today; the rest are on the workbench.</p>
+<ul class="cards">
+<li><a id="room-jejak" class="card" href="https://jejak.muiko.dev" rel="noopener" style="--acc:#b3271e">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>jejak</h3><p>places you've eaten and walked. the review belongs to the visit, not the place.</p>
+<span class="meta"><span class="chip live">live</span><span class="url">jejak.muiko.dev</span></span></a></li>
+<li><a id="room-shortener" class="card" href="https://shortener.muiko.dev" rel="noopener" style="--acc:#5361e8">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>shortener</h3><p>a quiet url shortener. no account, no clutter, links last a year.</p>
+<span class="meta"><span class="chip live">live</span><span class="url">shortener.muiko.dev</span></span></a></li>
+<li><a id="room-ticking-letter" class="card" href="https://muiko-hub-ticking-letter.hakeem-ishak.workers.dev" rel="noopener" style="--acc:#b23a48">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>ticking letter</h3><p>letters that wait for their right moment. sealed until the time you choose.</p>
+<span class="meta"><span class="chip live">live</span><span class="url">no home address yet</span></span></a></li>
+<li id="room-rak" class="card" style="--acc:#7a4a2b">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>rak</h3><p>a reading shelf. the rating belongs to the read, not the book.</p>
+<span class="meta"><span class="chip">in the workshop</span></span></li>
+<li id="room-nadafusion" class="card" style="--acc:#cc0000">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>nadafusion</h3><p>copy a playlist between spotify and youtube music, and see honestly which tracks it got right.</p>
+<span class="meta"><span class="chip">in the workshop</span></span></li>
+<li id="room-my-money" class="card" style="--acc:#89986d">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>my money</h3><p>expenses, monthly limits, and bank statements that import themselves.</p>
+<span class="meta"><span class="chip">in the workshop</span></span></li>
+<li id="room-duit-keluar" class="card" style="--acc:#0f6b52">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3><span lang="ms">duit keluar</span></h3><p>what you pay every month, at a glance. subscriptions, bills, the lot.</p>
+<span class="meta"><span class="chip">sketched</span></span></li>
+<li class="card ghost">
+<svg class="glyph" viewBox="0 0 30 24" aria-hidden="true"><rect x="1" y="1" width="28" height="22" rx="2"/><path d="M15 1v22M1 12h28"/></svg>
+<h3>your room here</h3><p>got a small tool that belongs in a home? <a href="mailto:pm@hakeemishak.me?subject=a%20room%20for%20muiko">write to me</a>.</p>
+<span class="meta"><span class="chip">someday</span></span></li>
+</ul>
+<dl class="board" aria-label="where it's at">
+<dt>now</dt><dd>the rooms above, each standing on its own</dd>
+<dt>next</dt><dd>the home itself at app.muiko.dev: profile, notes, favourites, one sign-in for every room</dd>
+<dt>later</dt><dd>rooms made by other people</dd>
+</dl>
+</section>
+
+<section id="who" class="wrap sec">
+<p class="eyebrow">who's building it</p>
+<h2>one person, after hours.</h2>
+<p>hakeem ishak. software engineer in malaysia, 5+ years of building stuff that works. by day: payments and pipelines at a photo-editing company. by night: muiko, one room at a time. sloth &gt; rabbit.</p>
+<ul class="links">
+<li><a href="https://github.com/HakeemIshak" rel="me noopener">github</a></li>
+<li><a href="https://www.linkedin.com/in/hakeemishak" rel="me noopener">linkedin</a></li>
+<li><a href="https://hakeemishak.me" rel="me">hakeemishak.me</a></li>
+<li><a href="mailto:pm@hakeemishak.me">pm@hakeemishak.me</a></li>
+</ul>
+</section>
+
+<section id="sponsor" class="wrap sec">
+<p class="eyebrow">help it get built</p>
+<h2>keep the lights on.</h2>
+<p>two rooms are already live: <a href="https://jejak.muiko.dev" rel="noopener">jejak</a> and the <a href="https://shortener.muiko.dev" rel="noopener">shortener</a>. muiko has no ads and no investors. a coffee a month pays for the domains, the hosting, the databases, and the late hours.</p>
+<p class="ask"><a id="sponsor-link" class="btn big" href="https://buymeacoffee.com/hakeemishak" rel="noopener">buy me a coffee</a></p>
+<p class="muted">sponsor a window: your name goes in a window on this building, for as long as you like.</p>
+<p class="muted">or <a href="https://github.com/HakeemIshak/muiko.dev" rel="noopener">watch the repo</a>, or just say hi: <a href="mailto:pm@hakeemishak.me?subject=muiko">pm@hakeemishak.me</a></p>
+</section>
+
+</main>
+
+<footer class="wrap">
+<p><span class="dot">muiko.dev</span> · made in malaysia · no cookies, no tracking · <a href="https://hakeemishak.me">hakeemishak.me</a> · © 2026</p>
+</footer>
+
+<script>
+(()=>{
+const t=document.getElementById('clock'),f=new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+const tick=()=>{const d=new Date();t.textContent=f.format(d);setTimeout(tick,60000-d.getSeconds()*1000-d.getMilliseconds())};
+tick();
+const hero=document.getElementById('top');
+new IntersectionObserver(([e])=>hero.classList.toggle('off',!e.isIntersecting)).observe(hero);
+const b=document.getElementById('rain');
+if(!window.AudioContext){b.hidden=true;return}
+let ctx,g;
+b.onclick=()=>{
+ if(!ctx){
+  ctx=new AudioContext();
+  const n=ctx.sampleRate*2,buf=ctx.createBuffer(1,n,ctx.sampleRate),d=buf.getChannelData(0);
+  for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+  const src=new AudioBufferSourceNode(ctx,{buffer:buf,loop:true});
+  const bp=new BiquadFilterNode(ctx,{type:'bandpass',frequency:1600,Q:.5});
+  const lfo=new OscillatorNode(ctx,{frequency:.12}),lg=new GainNode(ctx,{gain:500});
+  lfo.connect(lg).connect(bp.frequency);lfo.start();
+  g=new GainNode(ctx,{gain:0});src.connect(bp).connect(g).connect(ctx.destination);src.start();
+  const pop=()=>{const s=new AudioBufferSourceNode(ctx,{buffer:buf}),e=new GainNode(ctx,{gain:0}),now=ctx.currentTime;
+   e.gain.setValueAtTime(.35,now);e.gain.exponentialRampToValueAtTime(.001,now+.015);
+   s.connect(e).connect(g);s.start(now,Math.random());s.stop(now+.02);setTimeout(pop,80+Math.random()*500)};
+  pop();
+ }
+ const on=b.getAttribute('aria-pressed')!=='true';
+ b.setAttribute('aria-pressed',on);b.textContent='rain · '+(on?'on':'off');
+ ctx.resume();g.gain.setTargetAtTime(on?.3:0,ctx.currentTime,.4);
+ if(!on)setTimeout(()=>{if(b.getAttribute('aria-pressed')!=='true')ctx.suspend()},1500);
+};
+})();
+</script>
+</body>
+</html>
